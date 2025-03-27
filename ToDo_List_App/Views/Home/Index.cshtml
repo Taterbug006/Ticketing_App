@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ToDo_List_App.Models.Ticket>
+
+@{
+    ViewData["Title"] = "Ticket List";
+}
+
+<h2>My Tickets</h2>
+
+<p>
+    <a asp-action="Add">Add New Ticket</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Sprint</th>
+            <th>Points</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ticket in Model)
+        {
+            <tr>
+                <td>@ticket.Name</td>
+                <td>@ticket.Description</td>
+                <td>@ticket.SprintNumber</td>
+                <td>@ticket.PointValue</td>
+                <td>@ticket.Status?.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
