@@ -14,7 +14,7 @@ namespace ToDo_List_App.Tests
         public TicketServiceTests()
         {
             var options = new DbContextOptionsBuilder<TicketContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString()) // fresh DB per test
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
 
             _context = new TicketContext(options);
@@ -67,7 +67,7 @@ namespace ToDo_List_App.Tests
         {
             var statuses = _service.GetAllStatuses();
 
-            Assert.Equal(4, statuses.Count); // Matches seeding in TicketContext
+            Assert.Equal(4, statuses.Count);
             Assert.Contains(statuses, s => s.Name == "To Do");
             Assert.Contains(statuses, s => s.Name == "Done");
         }
