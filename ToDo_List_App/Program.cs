@@ -14,6 +14,7 @@ namespace ToDo_List_App
             builder.Services.AddDbContext<TicketContext>(options =>
                 options.UseInMemoryDatabase("TicketDB"));
 
+            // Use in-memory database bc I cant get azure to work
             builder.Services.AddScoped<ITicketService, TicketService>();
 
             var app = builder.Build();
