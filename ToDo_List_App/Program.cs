@@ -1,6 +1,5 @@
-using ToDo_List_App.Models;
 using Microsoft.EntityFrameworkCore;
-
+using ToDo_List_App.Models;
 
 namespace ToDo_List_App
 {
@@ -10,21 +9,18 @@ namespace ToDo_List_App
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<TicketContext>(options =>
-                options.UseInMemoryDatabase("TicketDB")); // Used UseInMemoryDatabase beacuse I couldnt get my asue database to connect
+                options.UseInMemoryDatabase("TicketDB"));
 
+            builder.Services.AddScoped<ITicketService, TicketService>();
 
             var app = builder.Build();
 
-
-            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -32,7 +28,6 @@ namespace ToDo_List_App
             app.UseStaticFiles();
 
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.MapControllerRoute(

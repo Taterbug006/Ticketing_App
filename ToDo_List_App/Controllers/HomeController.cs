@@ -1,27 +1,25 @@
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ToDo_List_App.Models;
-
 
 public class HomeController : Controller
 {
-    private readonly TicketContext _context;
+    private readonly ITicketService _ticketService;
 
-    public HomeController(TicketContext context)
+    public HomeController(ITicketService ticketService)
     {
-        _context = context;
+        _ticketService = ticketService;
     }
 
     public IActionResult Index()
     {
-        var tickets = _context.Tickets.Include(t => t.Status).ToList();
+        var tickets = _ticketService.GetAllTickets();
         return View(tickets);
     }
 
     public IActionResult Add()
     {
-        ViewBag.Statuses = new SelectList(_context.Statuses, "Id", "Name");
+        ViewBag.Statuses = new SelectList(_ticketService.GetAllStatuses(), "Id", "Name");
         return View();
     }
 
@@ -30,12 +28,11 @@ public class HomeController : Controller
     {
         if (ModelState.IsValid)
         {
-            _context.Tickets.Add(ticket);
-            _context.SaveChanges();
+            _ticketService.AddTicket(ticket);
             return RedirectToAction("Index");
         }
 
-        ViewBag.Statuses = new SelectList(_context.Statuses, "Id", "Name");
+        ViewBag.Statuses = new SelectList(_ticketService.GetAllStatuses(), "Id", "Name");
         return View(ticket);
     }
 }

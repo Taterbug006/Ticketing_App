@@ -1,16 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ToDo_List_App.Models;
 
-
 public class TicketContext : DbContext
 {
     public DbSet<Ticket> Tickets { get; set; }
     public DbSet<Status> Statuses { get; set; }
 
     public TicketContext(DbContextOptions<TicketContext> options)
-        : base(options)
-    {
-    }
+        : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
